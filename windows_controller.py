@@ -81,7 +81,7 @@ def GetInstanceStatus(instance_id):
     return instance_status
 
 if __name__ == '__main__':
-    base_url = "https://databaseapi7171.herokuapp.com"
-    g4dn_instance_id = "i-0594d71923a816d3e"
-    t2micro_instance_id = "i-08867510306a6ae08"
+    base_url = os.environ['BASE_URL']
+    g4dn_instance_id = os.environ['G4DN_INSTANCE_ID']
+    t2micro_instance_id = os.environ['T2MICRO_INSTANCE_ID']
     WindowsController(base_url, g4dn_instance_id, t2micro_instance_id)
