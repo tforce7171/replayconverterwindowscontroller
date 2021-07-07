@@ -2,6 +2,7 @@ import requests
 import time
 import boto3
 import pprint
+import os
 
 def WindowsController(base_url, g4dn_instance_id, t2micro_instance_id):
     while True:
