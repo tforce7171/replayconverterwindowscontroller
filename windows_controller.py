@@ -71,6 +71,6 @@ def GetInstanceStatus(instance_id):
     return instance_status
 
 if __name__ == '__main__':
-    datadatabase_url = os.environ['DATAdatabase_url']
+    database_url = os.environ['DATABASE_URL']
     g4dn_instance_id = os.environ['G4DN_INSTANCE_ID']
-    WindowsController(datadatabase_url, g4dn_instance_id)
+    WindowsController(database_url, g4dn_instance_id)
