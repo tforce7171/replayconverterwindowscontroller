@@ -4,21 +4,21 @@ import boto3
 import pprint
 import os
 
-def WindowsController(base_url, g4dn_instance_id, t2micro_instance_id):
+def WindowsController(database_url, g4dn_instance_id, t2micro_instance_id):
     while True:
         time.sleep(5)
-        replay_data = GetReplayData(base_url)
+        replay_data = GetReplayData(database_url)
         if ReplayInQueue(replay_data):
             StartInstance(g4dn_instance_id)
             while True:
                 time.sleep(5)
-                replay_data = GetReplayData(base_url)
+                replay_data = GetReplayData(database_url)
                 if not ReplayInQueue(replay_data) and not ReplayInProcess(replay_data):
                     StopInstance(g4dn_instance_id)
                     break
 
-def GetReplayData(base_url):
-    result = requests.get(base_url+"/replay_data")
+def GetReplayData(database_url):
+    result = requests.get(database_url+"/replay_data")
     replay_data = result.json()
     return replay_data
 
@@ -71,6 +71,6 @@ def GetInstanceStatus(instance_id):
     return instance_status
 
 if __name__ == '__main__':
-    database_url = os.environ['BASE_URL']
+    datadatabase_url = os.environ['DATAdatabase_url']
     g4dn_instance_id = os.environ['G4DN_INSTANCE_ID']
-    WindowsController(base_url, g4dn_instance_id)
+    WindowsController(datadatabase_url, g4dn_instance_id)
