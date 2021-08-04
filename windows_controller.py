@@ -7,28 +7,22 @@ import os
 def WindowsController(database_url, g4dn_instance_id, t2micro_instance_id):
     while True:
         time.sleep(5)
-        replay_data = GetReplayData(database_url)
-        if ReplayInQueue(replay_data):
+        replay_data_in_queue = GetReplayData(database_url, "in queue")
+        if replay_data["meta"]["count"] >= 1:
             StartInstance(g4dn_instance_id)
             while True:
                 time.sleep(5)
-                replay_data = GetReplayData(database_url)
-                if not ReplayInQueue(replay_data) and not ReplayInProcess(replay_data):
+                replay_data_in_queue = GetReplayData(database_url, "in queue")
+                replay_data_in_process = GetReplayData(database_url, "in process")
+                if replay_data_in_queue["meta"]["count"] == 0 and replay_data_in_process["meta"]["count"] == 0:
                     StopInstance(g4dn_instance_id)
                     break
 
-def GetReplayData(database_url):
-    result = requests.get(database_url+"/replay_data")
+def GetReplayData(database_url, conversion_status):
+    body = {"conversion_status": conversion_status}
+    result = requests.get(database_url+"api/replay_data", body)
     replay_data = result.json()
     return replay_data
-
-def ReplayInQueue(replay_data):
-    replay_in_queue = False
-    for data in replay_data:
-        if data["conversion_status"] == "in queue":
-            replay_in_queue = True
-            print(f'replay in queue {replay_in_queue}')
-    return replay_in_queue
 
 def ReplayInProcess(replay_data):
     replay_in_process = False
