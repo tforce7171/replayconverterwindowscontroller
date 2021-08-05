@@ -3,6 +3,7 @@ import time
 import boto3
 import pprint
 import os
+import json
 
 def WindowsController(database_url, g4dn_instance_id):
     while True:
@@ -21,7 +22,7 @@ def WindowsController(database_url, g4dn_instance_id):
 def GetReplayData(database_url, conversion_status):
     body = {"conversion_status": conversion_status}
     result = requests.get(database_url+"api/replay_data", body)
-    replay_data = result.json()
+    replay_data = json.loads(result.content)
     return replay_data
 
 def ReplayInProcess(replay_data):
