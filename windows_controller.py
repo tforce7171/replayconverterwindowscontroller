@@ -4,7 +4,7 @@ import boto3
 import pprint
 import os
 
-def WindowsController(database_url, g4dn_instance_id, t2micro_instance_id):
+def WindowsController(database_url, g4dn_instance_id):
     while True:
         time.sleep(5)
         replay_data_in_queue = GetReplayData(database_url, "in queue")
