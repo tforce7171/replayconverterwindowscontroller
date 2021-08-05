@@ -9,7 +9,7 @@ def WindowsController(database_url, g4dn_instance_id):
     while True:
         time.sleep(5)
         replay_data_in_queue = GetReplayData(database_url, "in queue")
-        if replay_data["meta"]["count"] >= 1:
+        if replay_data_in_queue["meta"]["count"] >= 1:
             StartInstance(g4dn_instance_id)
             while True:
                 time.sleep(5)
