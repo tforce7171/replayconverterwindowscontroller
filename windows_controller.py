@@ -21,7 +21,7 @@ def WindowsController(database_url, g4dn_instance_id):
 
 def GetReplayData(database_url, conversion_status):
     body = {"conversion_status": conversion_status}
-    result = requests.get(database_url+"api/replay_data", body)
+    result = requests.get(database_url+"api/replay_data/filter_by", body)
     replay_data = json.loads(result.content)
     return replay_data
 
