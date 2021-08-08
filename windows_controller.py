@@ -54,8 +54,8 @@ def StopInstance(instance_id):
     while True:
         time.sleep(5)
         state = InstanceState(instance_id)
-        print(f'instance state is {state}')
         if state == "stopped":
+            print(f'stopping instance {instance_id}')
             break
 
 def InstanceState(instance_id):
