@@ -4,6 +4,7 @@ import boto3
 import pprint
 import os
 import json
+import sys
 
 def WindowsController(database_url, g4dn_instance_id):
     while True:
