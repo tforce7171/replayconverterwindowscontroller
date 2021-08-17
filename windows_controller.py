@@ -10,7 +10,8 @@ def WindowsController(database_url, g4dn_instance_id):
     while True:
         time.sleep(5)
         replay_data_in_queue = GetReplayData(database_url, "in queue")
-        if replay_data_in_queue["meta"]["count"] >= 1:
+        replay_data_error = GetReplayData(database_url, "error")
+        if replay_data_in_queue["meta"]["count"] >= 1 and replay_data_error["meta"]["count"] == 0:
             StartInstance(g4dn_instance_id)
             while True:
                 time.sleep(5)
@@ -18,6 +19,8 @@ def WindowsController(database_url, g4dn_instance_id):
                 replay_data_in_process = GetReplayData(database_url, "in process")
                 replay_data_error = GetReplayData(database_url, "error")
                 if replay_data_error["meta"]["count"] != 0:
+                    print("conversion error")
+                    StopInstance(g4dn_instance_id)
                     print("exit process")
                     sys.exit()
                 elif replay_data_in_queue["meta"]["count"] == 0 and replay_data_in_process["meta"]["count"] == 0:
