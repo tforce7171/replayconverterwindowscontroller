@@ -21,8 +21,8 @@ def WindowsController(database_url, g4dn_instance_id):
                 if replay_data_error["meta"]["count"] != 0:
                     print("conversion error")
                     StopInstance(g4dn_instance_id)
-                    print("exit process")
-                    sys.exit()
+                    print("stopping process untill error is solved")
+                    break
                 elif replay_data_in_queue["meta"]["count"] == 0 and replay_data_in_process["meta"]["count"] == 0:
                     StopInstance(g4dn_instance_id)
                     break
